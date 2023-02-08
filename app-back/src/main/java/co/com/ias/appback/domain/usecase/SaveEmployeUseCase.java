@@ -19,6 +19,7 @@ public class SaveEmployeUseCase {
         this.findEmployeeByIdGateway = findEmployeeByIdGateway;
     }
 
+
     /**
      * validate an existing employee and save it only if it doesn't exist
      * @param employee value object
@@ -27,8 +28,9 @@ public class SaveEmployeUseCase {
     public Employee saveEmployee(Employee employee){
         Optional<Employee> opt = Optional.ofNullable(findEmployeeByIdGateway.findById(employee.getEmployeeId().getValue()));
         if (opt.isPresent()){
-            //throw EntityExistsException()
-
+            throw new EntityExistsException(
+                    "The id already exists, please try to modify the existing employee or check the provided id"
+            );
         }
         return saveEmployeeGateway.saveEmployee(employee);
     }
