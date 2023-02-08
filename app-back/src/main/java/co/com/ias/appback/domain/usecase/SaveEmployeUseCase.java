@@ -27,7 +27,7 @@ public class SaveEmployeUseCase {
     public Employee saveEmployee(Employee employee){
         Optional<Employee> opt = Optional.ofNullable(findEmployeeByIdGateway.findById(employee.getEmployeeId().getValue()));
         if (opt.isPresent()){
-            throw EntityExistsException()
+            //throw EntityExistsException()
 
         }
         return saveEmployeeGateway.saveEmployee(employee);
