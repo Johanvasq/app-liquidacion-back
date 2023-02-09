@@ -25,10 +25,11 @@ public class EmployeePosition {
      * @throws IllegalArgumentException if the object isn't valid
      */
     private void validation(String value) throws IllegalArgumentException{
-        notNull(value, "the position cannot be null");
-        isTrue(value.length() >= 10 && value.length() <= 30,
-                "position size is only between 10 and 30 characters");
-        isTrue(!matches(".*[^a-zA-Z0-9 ].*", value),
-                "the position cannot contain special characters");
+        if (value != null){
+            isTrue(value.length() >= 10 && value.length() <= 30,
+                    "position size is only between 10 and 30 characters");
+            isTrue(!matches(".*[^a-zA-Z0-9 ].*", value),
+                    "the position cannot contain special characters");
+        }
     }
 }

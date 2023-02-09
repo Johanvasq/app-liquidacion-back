@@ -1,22 +1,22 @@
 package co.com.ias.appback.domain.usecase;
 
 import co.com.ias.appback.domain.model.employee.Employee;
-import co.com.ias.appback.domain.model.gateway.FindEmployeeByIdGateway;
-import co.com.ias.appback.domain.model.gateway.SaveEmployeeGateway;
+import co.com.ias.appback.domain.model.gateway.IFindEmployeeByIdGateway;
+import co.com.ias.appback.domain.model.gateway.ISaveEmployeeGateway;
 import jakarta.persistence.EntityExistsException;
 
 import java.util.Optional;
 
 public class SaveEmployeeUseCase {
 
-    private final SaveEmployeeGateway saveEmployeeGateway;
-    private final FindEmployeeByIdGateway findEmployeeByIdGateway;
+    private final ISaveEmployeeGateway saveEmployeeGateway;
+    private final IFindEmployeeByIdGateway findEmployeeByIdGateway;
 
     public SaveEmployeeUseCase(
-            SaveEmployeeGateway saveEmployeeGateway,
-            FindEmployeeByIdGateway findEmployeeByIdGateway) {
-        this.saveEmployeeGateway = saveEmployeeGateway;
-        this.findEmployeeByIdGateway = findEmployeeByIdGateway;
+            ISaveEmployeeGateway saveEmployee,
+            IFindEmployeeByIdGateway findEmployeeById) {
+        this.saveEmployeeGateway = saveEmployee;
+        this.findEmployeeByIdGateway = findEmployeeById;
     }
 
 

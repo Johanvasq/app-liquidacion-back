@@ -20,13 +20,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeRepositoryAdapterTest {
 
     @InjectMocks
-    private EmployeeRepositoryAdapter employeeRepositoryAdapter;
+    private EmployeeRepositoryAdapterII employeeRepositoryAdapter;
 
     @Autowired
     IEmployeeRepositoryAdapter repository;
 
     @BeforeAll
-    void init(){ employeeRepositoryAdapter = new EmployeeRepositoryAdapter(repository); }
+    void init(){ employeeRepositoryAdapter = new EmployeeRepositoryAdapterII(repository); }
 
     @Test
     @DisplayName("find employee by id ok")

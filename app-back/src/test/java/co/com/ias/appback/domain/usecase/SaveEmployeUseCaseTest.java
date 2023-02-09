@@ -2,8 +2,8 @@ package co.com.ias.appback.domain.usecase;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.*;
-import co.com.ias.appback.domain.model.gateway.FindEmployeeByIdGateway;
-import co.com.ias.appback.domain.model.gateway.SaveEmployeeGateway;
+import co.com.ias.appback.domain.model.gateway.IFindEmployeeByIdGateway;
+import co.com.ias.appback.domain.model.gateway.ISaveEmployeeGateway;
 import jakarta.persistence.EntityExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,9 +23,9 @@ class SaveEmployeeUseCaseTest {
     private SaveEmployeeUseCase saveEmployeeUseCase;
 
     @Mock
-    private SaveEmployeeGateway saveEmployeeGateway;
+    private ISaveEmployeeGateway ISaveEmployeeGateway;
     @Mock
-    private FindEmployeeByIdGateway findEmployeeByIdGateway;
+    private IFindEmployeeByIdGateway IFindEmployeeByIdGateway;
 
     @Test
     @DisplayName("save employee ok")
@@ -39,9 +39,9 @@ class SaveEmployeeUseCaseTest {
                 new EmployeeState(true),
                 new EmployeeCurrentSalary(1500000.0)
         );
-        when(saveEmployeeGateway.saveEmployee(any(Employee.class)))
+        when(ISaveEmployeeGateway.saveEmployee(any(Employee.class)))
                 .thenReturn(employee);
-        when(findEmployeeByIdGateway.findById("1234598411"))
+        when(IFindEmployeeByIdGateway.findById("1234598411"))
                 .thenReturn(null);
         //Act
         //Assert
@@ -64,7 +64,7 @@ class SaveEmployeeUseCaseTest {
         );
         /*when(saveEmployeeGateway.saveEmployee(any(Employee.class)))
                 .thenReturn(employee);*/
-        when(findEmployeeByIdGateway.findById("12345678"))
+        when(IFindEmployeeByIdGateway.findById("12345678"))
                 .thenReturn(employee);
         //Act
         //Assert

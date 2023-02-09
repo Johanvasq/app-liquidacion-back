@@ -2,7 +2,7 @@ package co.com.ias.appback.domain.model.gateway;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 
-public interface SaveEmployeeGateway {
+public interface ISaveEmployeeGateway {
 
     Employee saveEmployee(Employee employee);
 }

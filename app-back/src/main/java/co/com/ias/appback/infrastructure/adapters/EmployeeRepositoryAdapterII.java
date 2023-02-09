@@ -1,20 +1,21 @@
 package co.com.ias.appback.infrastructure.adapters;
 
 import co.com.ias.appback.domain.model.employee.Employee;
-import co.com.ias.appback.domain.model.gateway.FindEmployeeByIdGateway;
-import co.com.ias.appback.domain.model.gateway.SaveEmployeeGateway;
+import co.com.ias.appback.domain.model.gateway.IFindEmployeeByIdGateway;
+import co.com.ias.appback.domain.model.gateway.ISaveEmployeeGateway;
 import co.com.ias.appback.infrastructure.adapters.jpa.IEmployeeRepositoryAdapter;
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.EmployeeDBO;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public class EmployeeRepositoryAdapter implements SaveEmployeeGateway, FindEmployeeByIdGateway {
+@Repository
+@AllArgsConstructor
+public class EmployeeRepositoryAdapterII implements ISaveEmployeeGateway, IFindEmployeeByIdGateway {
 
     private final IEmployeeRepositoryAdapter repository;
 
-    public EmployeeRepositoryAdapter(IEmployeeRepositoryAdapter repository) {
-        this.repository = repository;
-    }
 
     /**
      * find an employee by id in the repository
