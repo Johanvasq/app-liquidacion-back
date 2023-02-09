@@ -17,9 +17,9 @@ import static org.springframework.util.Assert.isTrue;
 @Setter
 public class EmployeeDTO {
 
-    @Size(max = 50, message = "The name only allows 50 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9 ]", message = "The name can't contain special characters")
     @NotNull(message = "The name can't be null")
+    @Size(max = 50, message = "The name only allows 50 characters")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The name can't contain special characters")
     private String name;
     @NotNull(message = "The id can't be null")
     @Size(min = 7, max = 15, message = "The size of the id can only be between 7 and 15 characters")
@@ -27,9 +27,9 @@ public class EmployeeDTO {
 
     @Pattern(regexp = "\\d{4}\\/(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])$")
     private String contractStart;
-    @Null
+
     @Size(min = 10, max = 30, message = "position size is only between 10 and 30 characters")
-    @Pattern(regexp = ".*[^a-zA-Z0-9 ].*", message = "the position cannot contain special characters")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "the position cannot contain special characters")
     private String position;
 
     @DecimalMin(value = "1160000", message = "the salary can't be less than SMMLV ($1.160.000)")
