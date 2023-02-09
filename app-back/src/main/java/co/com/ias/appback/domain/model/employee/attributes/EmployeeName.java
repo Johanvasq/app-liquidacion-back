@@ -22,11 +22,10 @@ public class EmployeeName {
     /**
      * validation of value "Employee name"
      * @param value String
-     * @return true or false
      * @throws IllegalArgumentException if the object isn't valid
      */
     private void validation(String value) throws IllegalArgumentException{
-        isTrue(Pattern.matches(".*[^a-zA-Z0-9 ].*", value),
+        isTrue(!Pattern.matches(".*[^a-zA-Z0-9 ].*", value),
                 "name cannot contain special characters");
         isTrue(value.length() <= 50, "the size of the name is maximum 50 characters");
         isTrue(!value.isEmpty(), "The name cannot be empty");

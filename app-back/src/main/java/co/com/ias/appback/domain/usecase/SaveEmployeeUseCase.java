@@ -7,12 +7,12 @@ import jakarta.persistence.EntityExistsException;
 
 import java.util.Optional;
 
-public class SaveEmployeUseCase {
+public class SaveEmployeeUseCase {
 
     private final SaveEmployeeGateway saveEmployeeGateway;
     private final FindEmployeeByIdGateway findEmployeeByIdGateway;
 
-    public SaveEmployeUseCase(
+    public SaveEmployeeUseCase(
             SaveEmployeeGateway saveEmployeeGateway,
             FindEmployeeByIdGateway findEmployeeByIdGateway) {
         this.saveEmployeeGateway = saveEmployeeGateway;
@@ -23,9 +23,10 @@ public class SaveEmployeUseCase {
     /**
      * validate an existing employee and save it only if it doesn't exist
      * @param employee value object
-     * @return
+     * @return Employee saved
+     * @throws EntityExistsException if employee already exists
      */
-    public Employee saveEmployee(Employee employee){
+    public Employee saveEmployee(Employee employee) throws EntityExistsException{
         Optional<Employee> opt = Optional.ofNullable(findEmployeeByIdGateway.findById(employee.getEmployeeId().getValue()));
         if (opt.isPresent()){
             throw new EntityExistsException(
