@@ -1,5 +1,6 @@
 package co.com.ias.appback.infrastructure.exceptions;
 
+import co.com.ias.appback.infrastructure.exceptions.dto.ResponseModel;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

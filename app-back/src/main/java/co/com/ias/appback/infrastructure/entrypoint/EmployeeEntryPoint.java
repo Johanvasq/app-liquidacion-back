@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/employee")
+@CrossOrigin(origins = "*")
 public class EmployeeEntryPoint {
 
     private final SaveEmployeeUseCase saveEmployeeUseCase;

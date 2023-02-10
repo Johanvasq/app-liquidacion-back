@@ -1,4 +1,4 @@
-package co.com.ias.appback.infrastructure.exceptions;
+package co.com.ias.appback.infrastructure.exceptions.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
