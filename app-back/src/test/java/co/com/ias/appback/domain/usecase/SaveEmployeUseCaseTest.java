@@ -62,12 +62,8 @@ class SaveEmployeeUseCaseTest {
                 new EmployeeState(true),
                 new EmployeeCurrentSalary(1500000.0)
         );
-        /*when(saveEmployeeGateway.saveEmployee(any(Employee.class)))
-                .thenReturn(employee);*/
         when(IFindEmployeeByIdGateway.findById("12345678"))
                 .thenReturn(employee);
-        //Act
-        //Assert
         Throwable exception = assertThrows(EntityExistsException.class, () -> saveEmployeeUseCase.saveEmployee(employee));
         assertTrue(exception.getMessage().contains("The id already exists, please try to modify the existing employee or check the provided id"));
     }

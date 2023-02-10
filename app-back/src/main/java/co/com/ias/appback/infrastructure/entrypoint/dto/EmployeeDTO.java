@@ -25,7 +25,7 @@ public class EmployeeDTO {
     @Size(min = 7, max = 15, message = "The size of the id can only be between 7 and 15 characters")
     private String id;
 
-    @Pattern(regexp = "\\d{4}\\/(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])$")
+    @Pattern(regexp = "\\d{4}\\/(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])$", message = "the date format is \"yyyy-dd-MM\"")
     private String contractStart;
 
     @Size(min = 10, max = 30, message = "position size is only between 10 and 30 characters")
@@ -40,7 +40,7 @@ public class EmployeeDTO {
     public EmployeeDTO(String name, String id, String contractStart, String position, Double currentSalary, Boolean state) {
         this.name = name;
         this.id = id;
-        validationContractStart(LocalDate.parse(contractStart));
+        validationContractStart(LocalDate.parse(contractStart, DateTimeFormatter.ofPattern("yyyy/dd/MM")));
         this.contractStart = contractStart;
         this.position = position;
         this.currentSalary = currentSalary;

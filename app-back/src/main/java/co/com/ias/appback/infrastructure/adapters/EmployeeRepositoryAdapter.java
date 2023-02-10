@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class EmployeeRepositoryAdapterII implements ISaveEmployeeGateway, IFindEmployeeByIdGateway {
+public class EmployeeRepositoryAdapter implements ISaveEmployeeGateway, IFindEmployeeByIdGateway {
 
     private final IEmployeeRepositoryAdapter repository;
 
@@ -26,11 +26,7 @@ public class EmployeeRepositoryAdapterII implements ISaveEmployeeGateway, IFindE
     @Override
     public Employee findById(String id) throws NullPointerException {
         Optional<EmployeeDBO> obj = repository.findById(id);
-        if (obj.isPresent()) {
-            return obj.get().toDomain();
-        }else {
-            throw new NullPointerException("No such employee");
-        }
+        return obj.map(EmployeeDBO::toDomain).orElse(null);
     }
 
     /**

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 
 @RestControllerAdvice
-public class RestControllerAdvisor extends ResponseEntityExceptionHandler {
+public class RestControllerAdvisor {
 
     @ExceptionHandler(value = NullPointerException.class)
     private ResponseEntity<ResponseModel> handleException(NullPointerException e){
@@ -34,8 +33,8 @@ public class RestControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(responseModel, HttpStatus.BAD_REQUEST);
     }
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = Exception.class)
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<List<ResponseModel>> handleException(MethodArgumentNotValidException e){
         List<ResponseModel> list = new ArrayList<>();
         e.getBindingResult().getAllErrors().forEach((objectError -> {
@@ -44,6 +43,8 @@ public class RestControllerAdvisor extends ResponseEntityExceptionHandler {
         }));
         return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
     }
+
+
 
 
 }
