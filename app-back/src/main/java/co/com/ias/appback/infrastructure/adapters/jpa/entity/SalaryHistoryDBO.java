@@ -1,0 +1,57 @@
+package co.com.ias.appback.infrastructure.adapters.jpa.entity;
+
+import co.com.ias.appback.domain.model.employee.Employee;
+import co.com.ias.appback.domain.model.employee.attributes.EmployeeId;
+import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
+import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryModificationDate;
+import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryUpdatedSalary;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "salary_history")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class SalaryHistoryDBO {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    private EmployeeDBO employeeDBO;
+
+    private Double updatedSalary;
+
+    private LocalDate modificationDate;
+
+
+    public SalaryHistoryDBO(EmployeeDBO employeeDBO, Double updatedSalary, LocalDate modificationDate) {
+        this.employeeDBO = employeeDBO;
+        this.updatedSalary = updatedSalary;
+        this.modificationDate = modificationDate;
+    }
+
+    public  SalaryHistory toDomain(){
+        return new SalaryHistory(
+                new EmployeeDBO().toDomain(),
+                new SalaryHistoryUpdatedSalary(this.updatedSalary),
+                new SalaryHistoryModificationDate(this.modificationDate)
+        );
+    }
+
+    public SalaryHistoryDBO fromDomain(SalaryHistory salaryHistory){
+        return new SalaryHistoryDBO(
+                new EmployeeDBO().fromDomain(salaryHistory.getEmployee()),
+                salaryHistory.getShUpdatedSalary().getValue(),
+                salaryHistory.getShModificationDate().getValue()
+        );
+    }
+
+
+
+}

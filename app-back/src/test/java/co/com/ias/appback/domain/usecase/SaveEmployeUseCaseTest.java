@@ -2,8 +2,9 @@ package co.com.ias.appback.domain.usecase;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.*;
-import co.com.ias.appback.domain.model.gateway.IFindEmployeeByIdGateway;
-import co.com.ias.appback.domain.model.gateway.ISaveEmployeeGateway;
+import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
+import co.com.ias.appback.domain.model.gateway.employee.ISaveEmployeeGateway;
+import co.com.ias.appback.domain.usecase.employee.SaveEmployeeUseCase;
 import jakarta.persistence.EntityExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

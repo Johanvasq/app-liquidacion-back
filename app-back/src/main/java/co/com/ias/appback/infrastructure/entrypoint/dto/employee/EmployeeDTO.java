@@ -1,5 +1,6 @@
-package co.com.ias.appback.infrastructure.entrypoint.dto;
+package co.com.ias.appback.infrastructure.entrypoint.dto.employee;
 
+import co.com.ias.appback.domain.model.constants.GlobalConstants;
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.*;
 import jakarta.validation.constraints.*;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static org.springframework.util.Assert.isTrue;
 
@@ -16,7 +16,7 @@ import static org.springframework.util.Assert.isTrue;
 @Getter
 @Setter
 public class EmployeeDTO {
-    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/dd/MM");
+
     @NotNull(message = "The name can't be null")
     @Size(max = 50, message = "The name only allows 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The name can't contain special characters")
@@ -40,7 +40,7 @@ public class EmployeeDTO {
     public EmployeeDTO(String id,String name, String contractStart, String position, Double currentSalary, Boolean state) {
         this.id = id;
         this.name = name;
-        validationContractStart(LocalDate.parse(contractStart, DATE_FORMAT));
+        validationContractStart(LocalDate.parse(contractStart, GlobalConstants.DATE_FORMAT));
         this.contractStart = contractStart;
         this.position = position;
         this.currentSalary = currentSalary;
@@ -51,7 +51,7 @@ public class EmployeeDTO {
         return new Employee(
                 new EmployeeId(this.id),
                 new EmployeeName(this.name),
-                new EmployeeContractStart(LocalDate.parse(this.contractStart, DATE_FORMAT)),
+                new EmployeeContractStart(LocalDate.parse(this.contractStart, GlobalConstants.DATE_FORMAT)),
                 new EmployeePosition(this.position),
                 new EmployeeState(this.state),
                 new EmployeeCurrentSalary(this.currentSalary)
@@ -62,7 +62,7 @@ public class EmployeeDTO {
         return new EmployeeDTO(
                 employee.getEmployeeId().getValue(),
                 employee.getEmployeeName().getValue(),
-                employee.getEmployeeContractStart().getValue().format(DATE_FORMAT),
+                employee.getEmployeeContractStart().getValue().format(GlobalConstants.DATE_FORMAT),
                 employee.getEmployeePosition().getValue(),
                 employee.getEmployeeCurrentSalary().getValue(),
                 employee.getEmployeeState().getValue()

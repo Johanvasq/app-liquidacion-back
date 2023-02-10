@@ -1,6 +1,6 @@
 package co.com.ias.appback;
 
-import co.com.ias.appback.domain.usecase.SaveEmployeeUseCase;
+import co.com.ias.appback.domain.usecase.employee.SaveEmployeeUseCase;
 import co.com.ias.appback.infrastructure.entrypoint.EmployeeEntryPoint;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

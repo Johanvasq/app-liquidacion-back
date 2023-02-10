@@ -1,4 +1,4 @@
-package co.com.ias.appback.domain.model.gateway;
+package co.com.ias.appback.domain.model.gateway.employee;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 

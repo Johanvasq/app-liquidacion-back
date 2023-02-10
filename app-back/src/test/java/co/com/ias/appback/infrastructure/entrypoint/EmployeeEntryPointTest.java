@@ -2,8 +2,8 @@ package co.com.ias.appback.infrastructure.entrypoint;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.*;
-import co.com.ias.appback.domain.usecase.SaveEmployeeUseCase;
-import co.com.ias.appback.infrastructure.entrypoint.dto.EmployeeDTO;
+import co.com.ias.appback.domain.usecase.employee.SaveEmployeeUseCase;
+import co.com.ias.appback.infrastructure.entrypoint.dto.employee.EmployeeDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
