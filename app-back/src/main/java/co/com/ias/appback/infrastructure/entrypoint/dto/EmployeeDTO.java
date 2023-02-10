@@ -16,7 +16,7 @@ import static org.springframework.util.Assert.isTrue;
 @Getter
 @Setter
 public class EmployeeDTO {
-
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/dd/MM");
     @NotNull(message = "The name can't be null")
     @Size(max = 50, message = "The name only allows 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "The name can't contain special characters")
@@ -37,10 +37,10 @@ public class EmployeeDTO {
     private Double currentSalary;
     private Boolean state;
 
-    public EmployeeDTO(String name, String id, String contractStart, String position, Double currentSalary, Boolean state) {
-        this.name = name;
+    public EmployeeDTO(String id,String name, String contractStart, String position, Double currentSalary, Boolean state) {
         this.id = id;
-        validationContractStart(LocalDate.parse(contractStart, DateTimeFormatter.ofPattern("yyyy/dd/MM")));
+        this.name = name;
+        validationContractStart(LocalDate.parse(contractStart, DATE_FORMAT));
         this.contractStart = contractStart;
         this.position = position;
         this.currentSalary = currentSalary;
@@ -51,7 +51,7 @@ public class EmployeeDTO {
         return new Employee(
                 new EmployeeId(this.id),
                 new EmployeeName(this.name),
-                new EmployeeContractStart(LocalDate.parse(this.contractStart, DateTimeFormatter.ofPattern("yyyy/dd/MM"))),
+                new EmployeeContractStart(LocalDate.parse(this.contractStart, DATE_FORMAT)),
                 new EmployeePosition(this.position),
                 new EmployeeState(this.state),
                 new EmployeeCurrentSalary(this.currentSalary)
@@ -62,7 +62,7 @@ public class EmployeeDTO {
         return new EmployeeDTO(
                 employee.getEmployeeId().getValue(),
                 employee.getEmployeeName().getValue(),
-                employee.getEmployeeContractStart().getValue().format(DateTimeFormatter.ofPattern("yyyy/dd/MM")),
+                employee.getEmployeeContractStart().getValue().format(DATE_FORMAT),
                 employee.getEmployeePosition().getValue(),
                 employee.getEmployeeCurrentSalary().getValue(),
                 employee.getEmployeeState().getValue()

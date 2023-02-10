@@ -13,13 +13,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import static org.mockito.ArgumentMatchers.any;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -59,6 +61,31 @@ class EmployeeEntryPointTest {
                         .string(containsString(employeeDTO.getName())))
                 .andExpect(content().string(containsString(employeeDTO.getId())))
                 .andExpect(content().string(containsString(employeeDTO.getPosition())));
+
+    }
+
+    @Test
+    @DisplayName("Save incorrect employee")
+    void testSaveEmployee() throws Exception {
+        EmployeeDTO employeeDTO = new EmployeeDTO(
+                "12345678",
+                "Johan?",
+                LocalDate.of(2015,2,2).format(DateTimeFormatter.ofPattern("yyyy/dd/MM")),
+                "software developer",
+                1500000.0,
+                true
+        );
+
+        when(saveEmployeeUseCase.saveEmployee(any(Employee.class)))
+                .thenThrow(IllegalArgumentException.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(employeeDTO)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(status().isBadRequest());
 
     }
 }
