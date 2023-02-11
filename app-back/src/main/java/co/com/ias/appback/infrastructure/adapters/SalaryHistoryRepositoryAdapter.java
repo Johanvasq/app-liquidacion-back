@@ -22,10 +22,13 @@ public class SalaryHistoryRepositoryAdapter implements ISaveSalaryHistoryGateway
 
     @Override
     public SalaryHistory saveSalaryHistory(SalaryHistory salaryHistory) throws IllegalArgumentException{
-        SalaryHistoryDBO rta = repository.save(new SalaryHistoryDBO().fromDomain(salaryHistory));
-        rta.setEmployeeDBO(new EmployeeDBO().fromDomain(salaryHistory.getEmployee()));
-        return rta.toDomain();
+        return repository.save(new SalaryHistoryDBO().fromDomain(salaryHistory)).toDomain();
     }
+
+
+
+
+
 
     @Override
     public List<SalaryHistory> findAllSalaryHistorybyEmployee(Employee employee) {

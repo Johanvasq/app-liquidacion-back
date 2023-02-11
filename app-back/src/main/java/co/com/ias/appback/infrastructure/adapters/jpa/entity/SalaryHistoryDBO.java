@@ -23,6 +23,7 @@ public class SalaryHistoryDBO {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "employee_id")
     private EmployeeDBO employeeDBO;
 
     private Double updatedSalary;
@@ -38,7 +39,7 @@ public class SalaryHistoryDBO {
 
     public  SalaryHistory toDomain(){
         return new SalaryHistory(
-                new EmployeeDBO().toDomain(),
+                this.employeeDBO.toDomain(),
                 new SalaryHistoryUpdatedSalary(this.updatedSalary),
                 new SalaryHistoryModificationDate(this.modificationDate)
         );
