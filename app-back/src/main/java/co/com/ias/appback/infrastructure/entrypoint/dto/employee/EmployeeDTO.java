@@ -36,8 +36,16 @@ public class EmployeeDTO {
     @DecimalMax(value = "7000000", message = "the salary can't be more than $7.000.000")
     private Double currentSalary;
     private Boolean state;
+    @Pattern(regexp = "\\d{4}\\/(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])$", message = "the date format is \"yyyy-dd-MM\"")
+    private String lastSalaryUpdated;
 
-    public EmployeeDTO(String id,String name, String contractStart, String position, Double currentSalary, Boolean state) {
+    public EmployeeDTO(String id,
+                       String name,
+                       String contractStart,
+                       String position,
+                       Double currentSalary,
+                       Boolean state,
+                       String lastSalaryUpdated) {
         this.id = id;
         this.name = name;
         validationContractStart(LocalDate.parse(contractStart, GlobalConstants.DATE_FORMAT));
@@ -45,6 +53,7 @@ public class EmployeeDTO {
         this.position = position;
         this.currentSalary = currentSalary;
         this.state = state;
+        this.lastSalaryUpdated = lastSalaryUpdated;
     }
 
     public Employee toDomain(){
@@ -54,7 +63,8 @@ public class EmployeeDTO {
                 new EmployeeContractStart(LocalDate.parse(this.contractStart, GlobalConstants.DATE_FORMAT)),
                 new EmployeePosition(this.position),
                 new EmployeeState(this.state),
-                new EmployeeCurrentSalary(this.currentSalary)
+                new EmployeeCurrentSalary(this.currentSalary),
+                new EmployeeLastSalaryUpdated(LocalDate.parse(this.lastSalaryUpdated, GlobalConstants.DATE_FORMAT))
         );
     }
 
@@ -65,7 +75,8 @@ public class EmployeeDTO {
                 employee.getEmployeeContractStart().getValue().format(GlobalConstants.DATE_FORMAT),
                 employee.getEmployeePosition().getValue(),
                 employee.getEmployeeCurrentSalary().getValue(),
-                employee.getEmployeeState().getValue()
+                employee.getEmployeeState().getValue(),
+                employee.getEmployeeLastSalaryUpdated().getValue().format(GlobalConstants.DATE_FORMAT)
         );
     }
 

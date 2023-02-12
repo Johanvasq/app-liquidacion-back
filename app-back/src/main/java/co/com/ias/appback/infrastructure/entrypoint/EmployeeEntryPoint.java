@@ -2,10 +2,13 @@ package co.com.ias.appback.infrastructure.entrypoint;
 
 import co.com.ias.appback.domain.model.constants.GlobalConstants;
 import co.com.ias.appback.domain.usecase.employee.FindEmployeeByIdUseCase;
+import co.com.ias.appback.domain.usecase.employee.PaginationEmployeeUseCase;
 import co.com.ias.appback.domain.usecase.employee.SaveEmployeeUseCase;
 import co.com.ias.appback.domain.usecase.employee.UpdateEmployeeUseCase;
 import co.com.ias.appback.infrastructure.entrypoint.dto.employee.EmployeeDTO;
+import co.com.ias.appback.infrastructure.entrypoint.dto.employee.PaginationEmployeeDTO;
 import co.com.ias.appback.infrastructure.entrypoint.dto.employee.UpdateEmployeeDTO;
+import co.com.ias.appback.infrastructure.entrypoint.dto.pageresponse.PageResponseDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -23,13 +27,14 @@ public class EmployeeEntryPoint {
 
     private final SaveEmployeeUseCase saveEmployeeUseCase;
     private final FindEmployeeByIdUseCase findEmployeeByIdUseCase;
-
     private final UpdateEmployeeUseCase updateEmployeeUseCase;
+    private final PaginationEmployeeUseCase paginationEmployeeUseCase;
 
 
     @PostMapping
     public ResponseEntity<EmployeeDTO> saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
         employeeDTO.setState(true);
+        employeeDTO.setLastSalaryUpdated(employeeDTO.getContractStart());
         EmployeeDTO rta = new EmployeeDTO().fromDomain(saveEmployeeUseCase.saveEmployee(employeeDTO.toDomain()));
         return ResponseEntity.status(HttpStatus.CREATED).body(rta);
 
@@ -53,10 +58,22 @@ public class EmployeeEntryPoint {
                 updateEmployeeDTO.getUpdateSalary(),
                 LocalDate.parse(updateEmployeeDTO.getModificationDate(), GlobalConstants.DATE_FORMAT)
         )));
-
-
     }
 
+
+    @GetMapping
+    public ResponseEntity<PageResponseDTO> paginationEmployees(
+            @Valid @RequestBody PaginationEmployeeDTO paginationEmployeeDTO){
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(new PageResponseDTO()
+                        .fromDomain(paginationEmployeeUseCase
+                        .findEmployeesBySalaryRange(
+                                paginationEmployeeDTO.getMinRangeSalary(),
+                                paginationEmployeeDTO.getMaxRangeSalary(),
+                                paginationEmployeeDTO.getRecordsPerPage(),
+                                paginationEmployeeDTO.getPage()
+                        )));
+    }
 
 
 }

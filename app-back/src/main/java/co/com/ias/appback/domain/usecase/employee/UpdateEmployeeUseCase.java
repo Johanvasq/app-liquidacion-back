@@ -3,6 +3,7 @@ package co.com.ias.appback.domain.usecase.employee;
 import co.com.ias.appback.domain.model.constants.GlobalConstants;
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.EmployeeCurrentSalary;
+import co.com.ias.appback.domain.model.employee.attributes.EmployeeLastSalaryUpdated;
 import co.com.ias.appback.domain.model.employee.attributes.EmployeePosition;
 import co.com.ias.appback.domain.model.employee.attributes.EmployeeState;
 import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
@@ -16,20 +17,9 @@ import jakarta.persistence.EntityExistsException;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class UpdateEmployeeUseCase {
-
-    public final IUpdateEmployeeGateway iupdateEmployeeGateway;
-    public final IFindEmployeeByIdGateway iFindEmployeeByIdGateway;
-    public final ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway;
-
-    public UpdateEmployeeUseCase(
-            IUpdateEmployeeGateway iupdateEmployeeGateway,
-            IFindEmployeeByIdGateway iFindEmployeeByIdGateway,
-            ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway) {
-        this.iupdateEmployeeGateway = iupdateEmployeeGateway;
-        this.iFindEmployeeByIdGateway = iFindEmployeeByIdGateway;
-        this.iSaveSalaryHistoryGateway = iSaveSalaryHistoryGateway;
-    }
+public record UpdateEmployeeUseCase(IUpdateEmployeeGateway iupdateEmployeeGateway,
+                                    IFindEmployeeByIdGateway iFindEmployeeByIdGateway,
+                                    ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway) {
 
     public Employee updateEmployee(String id,
                                    String position,
@@ -38,18 +28,18 @@ public class UpdateEmployeeUseCase {
         Optional<Employee> employee = Optional.ofNullable(iFindEmployeeByIdGateway.findById(id));
         Double newSalary;
         LocalDate newDate;
-        if (employee.isPresent()){
+        if (employee.isPresent()) {
             Double salary = employee.get().getEmployeeCurrentSalary().getValue();
             LocalDate date = employee.get().getEmployeeContractStart().getValue();
-            if (salary < updateSalary){
+            if (salary < updateSalary) {
                 newSalary = updateSalary;
-            }else {
+            } else {
                 throw new IllegalArgumentException(
                         "the salary provided must be higher than the previous one: " + salary);
             }
-            if (date.isBefore(modificationDate)){
+            if (date.isBefore(modificationDate)) {
                 newDate = modificationDate;
-            }else {
+            } else {
                 throw new IllegalArgumentException(
                         "the date provided must be higher than the previous one: "
                                 + date.format(GlobalConstants.DATE_FORMAT));
@@ -65,7 +55,8 @@ public class UpdateEmployeeUseCase {
                     employee.get().getEmployeeContractStart(),
                     new EmployeePosition(position),
                     new EmployeeState(true),
-                    new EmployeeCurrentSalary(newSalary)
+                    new EmployeeCurrentSalary(newSalary),
+                    employee.get().getEmployeeLastSalaryUpdated()
             ));
         }
         throw new EntityExistsException(

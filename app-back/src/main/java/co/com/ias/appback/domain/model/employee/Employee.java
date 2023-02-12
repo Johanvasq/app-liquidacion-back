@@ -13,6 +13,9 @@ public class Employee {
     private final EmployeeState employeeState;
     private final EmployeeCurrentSalary employeeCurrentSalary;
 
+    private final EmployeeLastSalaryUpdated employeeLastSalaryUpdated;
+
+
     /**
      * Constructor of value object
      * @param employeeId employee identification, not null, String
@@ -22,13 +25,20 @@ public class Employee {
      * @param employeeState employee state, not null, Boolean
      * @param employeeCurrentSalary employee current salary, not null, Double
      */
-    public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeContractStart employeeContractStart, EmployeePosition employeePosition, EmployeeState employeeState, EmployeeCurrentSalary employeeCurrentSalary) {
+    public Employee(EmployeeId employeeId,
+                    EmployeeName employeeName,
+                    EmployeeContractStart employeeContractStart,
+                    EmployeePosition employeePosition,
+                    EmployeeState employeeState,
+                    EmployeeCurrentSalary employeeCurrentSalary,
+                    EmployeeLastSalaryUpdated employeeLastSalaryUpdated) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeContractStart = employeeContractStart;
         this.employeePosition = employeePosition;
         this.employeeState = employeeState;
         this.employeeCurrentSalary = employeeCurrentSalary;
+        this.employeeLastSalaryUpdated = employeeLastSalaryUpdated;
     }
 
     public EmployeeId getEmployeeId() {
@@ -54,4 +64,9 @@ public class Employee {
     public EmployeeCurrentSalary getEmployeeCurrentSalary() {
         return employeeCurrentSalary;
     }
+
+    public EmployeeLastSalaryUpdated getEmployeeLastSalaryUpdated() {
+        return employeeLastSalaryUpdated;
+    }
+
 }

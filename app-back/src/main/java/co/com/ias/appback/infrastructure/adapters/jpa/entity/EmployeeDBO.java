@@ -26,6 +26,7 @@ public class EmployeeDBO {
     private String position;
     private Boolean state;
     private Double currentSalary;
+    private LocalDate lastSalaryUpdated;
 
     public Employee toDomain(){
         return new Employee(
@@ -34,7 +35,8 @@ public class EmployeeDBO {
                 new EmployeeContractStart(this.contractStart),
                 new EmployeePosition(this.position),
                 new EmployeeState(this.state),
-                new EmployeeCurrentSalary(this.currentSalary)
+                new EmployeeCurrentSalary(this.currentSalary),
+                new EmployeeLastSalaryUpdated(this.lastSalaryUpdated)
         );
     }
 
@@ -45,7 +47,8 @@ public class EmployeeDBO {
                 employee.getEmployeeContractStart().getValue(),
                 employee.getEmployeePosition().getValue(),
                 employee.getEmployeeState().getValue(),
-                employee.getEmployeeCurrentSalary().getValue()
+                employee.getEmployeeCurrentSalary().getValue(),
+                employee.getEmployeeLastSalaryUpdated().getValue()
         );
     }
 }
