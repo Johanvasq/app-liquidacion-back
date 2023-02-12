@@ -17,9 +17,18 @@ import jakarta.persistence.EntityExistsException;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public record UpdateEmployeeUseCase(IUpdateEmployeeGateway iupdateEmployeeGateway,
-                                    IFindEmployeeByIdGateway iFindEmployeeByIdGateway,
-                                    ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway) {
+public class UpdateEmployeeUseCase {
+
+    private final IUpdateEmployeeGateway iupdateEmployeeGateway;
+    private final IFindEmployeeByIdGateway iFindEmployeeByIdGateway;
+    private final ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway;
+
+    public UpdateEmployeeUseCase(IUpdateEmployeeGateway iupdateEmployeeGateway, IFindEmployeeByIdGateway iFindEmployeeByIdGateway, ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway) {
+        this.iupdateEmployeeGateway = iupdateEmployeeGateway;
+        this.iFindEmployeeByIdGateway = iFindEmployeeByIdGateway;
+        this.iSaveSalaryHistoryGateway = iSaveSalaryHistoryGateway;
+    }
+
 
     public Employee updateEmployee(String id,
                                    String position,
@@ -56,7 +65,7 @@ public record UpdateEmployeeUseCase(IUpdateEmployeeGateway iupdateEmployeeGatewa
                     new EmployeePosition(position),
                     new EmployeeState(true),
                     new EmployeeCurrentSalary(newSalary),
-                    employee.get().getEmployeeLastSalaryUpdated()
+                    new EmployeeLastSalaryUpdated(newDate)
             ));
         }
         throw new EntityExistsException(

@@ -12,8 +12,6 @@ public class PageResponse {
 
     private final PageResponseResults pageResponseResults;
     private final PageResponseRemainingResults pageResponseRemainingResults;
-
-
     private final List<Employee> employee;
 
     public PageResponse(PageResponsePaging pageResponsePaging, PageResponseResults pageResponseResults, PageResponseRemainingResults pageResponseRemainingResults, List<Employee> employee) {

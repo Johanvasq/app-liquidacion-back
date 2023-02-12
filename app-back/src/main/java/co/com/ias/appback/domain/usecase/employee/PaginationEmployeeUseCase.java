@@ -30,7 +30,7 @@ public class PaginationEmployeeUseCase {
             throw new IllegalArgumentException("please provide correct salary range");
         }
         int selectedRecordsPerPage = recordsPerPage != null ? recordsPerPage : 5;
-        Pageable pageable = PageRequest.of(page, selectedRecordsPerPage);
+        Pageable pageable = PageRequest.of(page - 1, selectedRecordsPerPage);
 
         Page<Employee> rta = iPaginationEmployeeGateway
                 .findEmployeesBySalaryRange(selectedMinSalary, selectedMaxSalary, pageable);

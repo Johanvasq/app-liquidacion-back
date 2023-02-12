@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PageResponseDTO {
 
-    private Integer paging;
+    private Integer totalPages;
     private Integer results;
 
     private Integer remainingResults;
@@ -27,7 +27,7 @@ public class PageResponseDTO {
 
     public PageResponse toDomain(){
         return new PageResponse(
-                new PageResponsePaging(this.paging),
+                new PageResponsePaging(this.totalPages),
                 new PageResponseResults(this.results),
                 new PageResponseRemainingResults(this.remainingResults),
                 this.employees
