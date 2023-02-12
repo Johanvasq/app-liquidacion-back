@@ -4,6 +4,7 @@ import co.com.ias.appback.infrastructure.exceptions.dto.ResponseModel;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,9 +28,22 @@ public class RestControllerAdvisor {
         return new ResponseEntity<>(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value =EntityExistsException.class)
+    @ExceptionHandler(value = EntityExistsException.class)
     private ResponseEntity<ResponseModel> handleException(EntityExistsException e){
         ResponseModel responseModel = new ResponseModel(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return new ResponseEntity<>(responseModel, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = IllegalStateException.class)
+    private ResponseEntity<ResponseModel> handleException(IllegalStateException e){
+        ResponseModel responseModel = new ResponseModel(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return new ResponseEntity<>(responseModel, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = HttpMessageNotReadableException .class)
+    private ResponseEntity<ResponseModel> handleException(HttpMessageNotReadableException e){
+        ResponseModel responseModel = new ResponseModel(
+                HttpStatus.BAD_REQUEST.value(),
+                "Provide a correct Json request");
         return new ResponseEntity<>(responseModel, HttpStatus.BAD_REQUEST);
     }
 

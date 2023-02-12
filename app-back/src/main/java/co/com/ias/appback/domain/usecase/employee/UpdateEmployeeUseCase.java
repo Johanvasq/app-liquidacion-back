@@ -1,5 +1,6 @@
 package co.com.ias.appback.domain.usecase.employee;
 
+import co.com.ias.appback.domain.model.constants.GlobalConstants;
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.EmployeeCurrentSalary;
 import co.com.ias.appback.domain.model.employee.attributes.EmployeePosition;
@@ -23,7 +24,8 @@ public class UpdateEmployeeUseCase {
 
     public UpdateEmployeeUseCase(
             IUpdateEmployeeGateway iupdateEmployeeGateway,
-            IFindEmployeeByIdGateway iFindEmployeeByIdGateway, ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway) {
+            IFindEmployeeByIdGateway iFindEmployeeByIdGateway,
+            ISaveSalaryHistoryGateway iSaveSalaryHistoryGateway) {
         this.iupdateEmployeeGateway = iupdateEmployeeGateway;
         this.iFindEmployeeByIdGateway = iFindEmployeeByIdGateway;
         this.iSaveSalaryHistoryGateway = iSaveSalaryHistoryGateway;
@@ -31,7 +33,7 @@ public class UpdateEmployeeUseCase {
 
     public Employee updateEmployee(String id,
                                    String position,
-                                   Double currentSalary,
+                                   Double updateSalary,
                                    LocalDate modificationDate) throws IllegalArgumentException {
         Optional<Employee> employee = Optional.ofNullable(iFindEmployeeByIdGateway.findById(id));
         Double newSalary;
@@ -39,15 +41,18 @@ public class UpdateEmployeeUseCase {
         if (employee.isPresent()){
             Double salary = employee.get().getEmployeeCurrentSalary().getValue();
             LocalDate date = employee.get().getEmployeeContractStart().getValue();
-            if (salary < currentSalary){
-                newSalary = currentSalary;
+            if (salary < updateSalary){
+                newSalary = updateSalary;
             }else {
-                throw new IllegalArgumentException("the salary provided must be higher than the previous one");
+                throw new IllegalArgumentException(
+                        "the salary provided must be higher than the previous one: " + salary);
             }
             if (date.isBefore(modificationDate)){
                 newDate = modificationDate;
             }else {
-                throw new IllegalArgumentException("the date provided must be higher than the previous one");
+                throw new IllegalArgumentException(
+                        "the date provided must be higher than the previous one: "
+                                + date.format(GlobalConstants.DATE_FORMAT));
             }
             iSaveSalaryHistoryGateway.saveSalaryHistory(new SalaryHistory(
                     employee.get(),

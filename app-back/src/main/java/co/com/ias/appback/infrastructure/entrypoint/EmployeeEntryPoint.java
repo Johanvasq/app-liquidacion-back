@@ -50,7 +50,7 @@ public class EmployeeEntryPoint {
         return ResponseEntity.status(HttpStatus.OK).body(new EmployeeDTO().fromDomain(updateEmployeeUseCase.updateEmployee(
                 updateEmployeeDTO.getId(),
                 updateEmployeeDTO.getPosition(),
-                updateEmployeeDTO.getCurrentSalary(),
+                updateEmployeeDTO.getUpdateSalary(),
                 LocalDate.parse(updateEmployeeDTO.getModificationDate(), GlobalConstants.DATE_FORMAT)
         )));
 

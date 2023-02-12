@@ -17,5 +17,3 @@ q
 Aapp-back/src/main/java/co/com/ias/appback/AppBackApplication.java,8\a\8a50dfc5bc085a3cf98837df33256fd50bcef600
 Ü
 Vapp-back/src/main/java/co/com/ias/appback/infrastructure/exceptions/ResponseModel.java,8\3\83294bd38bdd31dda286794a39589f0b984734f6
-ê
-`app-back/src/main/java/co/com/ias/appback/infrastructure/adapters/EmployeeRepositoryAdapter.java,e\8\e82cb2ac9c556e562be541d8ca5a3a3ba39783ba
