@@ -2,7 +2,9 @@ package co.com.ias.appback.domain.usecase.liquidation;
 
 import co.com.ias.appback.domain.model.constants.GlobalConstants;
 import co.com.ias.appback.domain.model.employee.Employee;
+import co.com.ias.appback.domain.model.employee.attributes.EmployeeState;
 import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
+import co.com.ias.appback.domain.model.gateway.employee.IUpdateEmployeeGateway;
 import co.com.ias.appback.domain.model.gateway.liquidation.ISaveLiquidationGateway;
 import co.com.ias.appback.domain.model.gateway.salary.IFindAllSalaryHistoryGateway;
 import co.com.ias.appback.domain.model.liquidation_payment_request.LiquidationRequest;
@@ -23,10 +25,12 @@ public class SaveLiquidationUseCase {
     private final IFindEmployeeByIdGateway iFindEmployeeByIdGateway;
     private final IFindAllSalaryHistoryGateway iFindAllSalaryHistoryGateway;
 
-    public SaveLiquidationUseCase(ISaveLiquidationGateway iSaveLiquidationGateway, IFindEmployeeByIdGateway iFindEmployeeByIdGateway, IFindAllSalaryHistoryGateway iFindAllSalaryHistoryGateway) {
+    private final IUpdateEmployeeGateway iUpdateEmployeeGateway;
+    public SaveLiquidationUseCase(ISaveLiquidationGateway iSaveLiquidationGateway, IFindEmployeeByIdGateway iFindEmployeeByIdGateway, IFindAllSalaryHistoryGateway iFindAllSalaryHistoryGateway, IUpdateEmployeeGateway iUpdateEmployeeGateway) {
         this.iSaveLiquidationGateway = iSaveLiquidationGateway;
         this.iFindEmployeeByIdGateway = iFindEmployeeByIdGateway;
         this.iFindAllSalaryHistoryGateway = iFindAllSalaryHistoryGateway;
+        this.iUpdateEmployeeGateway = iUpdateEmployeeGateway;
     }
 
     public LiquidationPaymentResponse saveEmployeeLiquidation(LiquidationRequest liquidationRequest){
@@ -57,7 +61,8 @@ public class SaveLiquidationUseCase {
         TotalDaysWorked totalDaysWorked = totalDaysWorked(
                 employee.get().getEmployeeContractStart().getValue(), liquidationRequest.getEmployeeContractEnd().getValue());
 
-        DaysWorkedCurrentYear daysWorkedCurrentYear = daysWorkedCurrentYear(liquidationRequest.getEmployeeContractEnd().getValue());
+        DaysWorkedCurrentYear daysWorkedCurrentYear = daysWorkedCurrentYear(
+                employee.get().getEmployeeContractStart().getValue(),liquidationRequest.getEmployeeContractEnd().getValue());
 
         VacationDaysToBeTaken vacationDaysToBeTaken = vacationDaysToBeTaken(totalDaysWorked.getValue());
 
@@ -95,6 +100,16 @@ public class SaveLiquidationUseCase {
                 payrollPayable.getValue(),
                 bonusUnjustifiedDismissal.getValue());
 
+        iUpdateEmployeeGateway.updateEmployee(new Employee(
+                employee.get().getEmployeeId(),
+                employee.get().getEmployeeName(),
+                employee.get().getEmployeeContractStart(),
+                employee.get().getEmployeePosition(),
+                new EmployeeState(false),
+                employee.get().getEmployeeCurrentSalary(),
+                employee.get().getEmployeeLastSalaryUpdated()
+        ));
+
         return iSaveLiquidationGateway.saveLiquidation(new LiquidationPaymentResponse(
                 new LiquidationPaymentResponseId(null),
                 employee.get(),
@@ -130,7 +145,12 @@ public class SaveLiquidationUseCase {
         );
     }
 
-    private DaysWorkedCurrentYear daysWorkedCurrentYear(LocalDate contractEnd){
+    private DaysWorkedCurrentYear daysWorkedCurrentYear(LocalDate contractStart,LocalDate contractEnd){
+        if (contractStart.getYear() == contractEnd.getYear()){
+            return new DaysWorkedCurrentYear(
+                    between(contractStart,contractEnd).getDays()
+            );
+        }
         return new DaysWorkedCurrentYear(
                 between(LocalDate.of(contractEnd.getYear(), 1,1),contractEnd).getDays()
         );
