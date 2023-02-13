@@ -2,9 +2,9 @@ package co.com.ias.appback.infrastructure.adapters;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.*;
-import co.com.ias.appback.infrastructure.adapters.jpa.IEmployeeRepositoryAdapter;
+import co.com.ias.appback.infrastructure.adapters.jpa.EmployeeRepositoryAdapter;
+import co.com.ias.appback.infrastructure.adapters.jpa.repository.IEmployeeRepositoryAdapter;
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.EmployeeDBO;
-import jakarta.annotation.Nullable;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;

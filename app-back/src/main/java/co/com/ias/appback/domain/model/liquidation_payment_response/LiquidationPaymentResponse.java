@@ -11,7 +11,7 @@ public class LiquidationPaymentResponse {
     private final LiquidationPaymentResponseId id;
     private final Employee employee;
     private final EmployeeCurrentSalary lprLastSalary;
-    private final co.com.ias.appback.domain.model.liquidation_payment_response.attributes.TransportationAllowance TransportationAllowance;
+    private final TransportationAllowance transportationAllowance;
     private final EmployeeContractStart employeeContractStart;
     private final EmployeeContractEnd employeeContractEnd;
     private  final LRWithdrawalReason withdrawalReason;
@@ -32,7 +32,7 @@ public class LiquidationPaymentResponse {
         this.id = id;
         this.employee = employee;
         this.lprLastSalary = lprLastSalary;
-        this.TransportationAllowance = transportationAllowance;
+        this.transportationAllowance = transportationAllowance;
         this.employeeContractStart = employeeContractStart;
         this.employeeContractEnd = employeeContractEnd;
         this.withdrawalReason = withdrawalReason;
@@ -63,7 +63,7 @@ public class LiquidationPaymentResponse {
     }
 
     public TransportationAllowance getTransportationAllowance() {
-        return TransportationAllowance;
+        return transportationAllowance;
     }
 
     public EmployeeContractStart getEmployeeContractStart() {

@@ -1,4 +1,4 @@
-package co.com.ias.appback.infrastructure.adapters.jpa;
+package co.com.ias.appback.infrastructure.adapters.jpa.repository;
 
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.EmployeeDBO;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package co.com.ias.appback.infrastructure.adapters.jpa;
+package co.com.ias.appback.infrastructure.adapters.jpa.repository;
 
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.SalaryHistoryDBO;
 import org.springframework.data.jpa.repository.JpaRepository;

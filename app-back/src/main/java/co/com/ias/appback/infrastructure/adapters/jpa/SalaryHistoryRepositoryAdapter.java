@@ -1,9 +1,9 @@
-package co.com.ias.appback.infrastructure.adapters;
+package co.com.ias.appback.infrastructure.adapters.jpa;
 
 import co.com.ias.appback.domain.model.gateway.salary.IFindAllSalaryHistoryGateway;
 import co.com.ias.appback.domain.model.gateway.salary.ISaveSalaryHistoryGateway;
 import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
-import co.com.ias.appback.infrastructure.adapters.jpa.ISalaryHistoryRepositoryAdapter;
+import co.com.ias.appback.infrastructure.adapters.jpa.repository.ISalaryHistoryRepositoryAdapter;
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.SalaryHistoryDBO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
