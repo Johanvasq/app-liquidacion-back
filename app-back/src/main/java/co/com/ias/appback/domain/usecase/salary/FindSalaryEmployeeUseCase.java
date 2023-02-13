@@ -3,7 +3,7 @@ package co.com.ias.appback.domain.usecase.salary;
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
 import co.com.ias.appback.domain.model.gateway.salary.IFindAllSalaryHistoryGateway;
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
 import jakarta.persistence.EntityExistsException;
 
 import java.util.List;

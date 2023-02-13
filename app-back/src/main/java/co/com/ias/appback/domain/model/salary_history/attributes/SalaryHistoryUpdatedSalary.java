@@ -1,6 +1,4 @@
-package co.com.ias.appback.domain.model.salaryhistory.attributes;
-
-import java.time.LocalDate;
+package co.com.ias.appback.domain.model.salary_history.attributes;
 
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;

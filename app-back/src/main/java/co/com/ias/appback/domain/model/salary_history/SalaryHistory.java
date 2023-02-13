@@ -1,9 +1,8 @@
-package co.com.ias.appback.domain.model.salaryhistory;
+package co.com.ias.appback.domain.model.salary_history;
 
 import co.com.ias.appback.domain.model.employee.Employee;
-import co.com.ias.appback.domain.model.employee.attributes.EmployeeId;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryModificationDate;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryUpdatedSalary;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryModificationDate;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryUpdatedSalary;
 
 public class SalaryHistory {
     private final Employee employee;

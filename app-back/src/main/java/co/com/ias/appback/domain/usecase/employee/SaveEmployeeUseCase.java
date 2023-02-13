@@ -3,9 +3,9 @@ package co.com.ias.appback.domain.usecase.employee;
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
 import co.com.ias.appback.domain.model.gateway.employee.ISaveEmployeeGateway;
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryModificationDate;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryUpdatedSalary;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryModificationDate;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryUpdatedSalary;
 import co.com.ias.appback.domain.usecase.salary.SaveSalaryHistoryUseCase;
 import jakarta.persistence.EntityExistsException;
 

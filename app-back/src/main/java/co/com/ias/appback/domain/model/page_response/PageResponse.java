@@ -1,8 +1,8 @@
-package co.com.ias.appback.domain.model.pageresponse;
+package co.com.ias.appback.domain.model.page_response;
 
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponsePaging;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponseRemainingResults;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponseResults;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponsePaging;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponseRemainingResults;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponseResults;
 import co.com.ias.appback.domain.model.employee.Employee;
 
 import java.util.List;

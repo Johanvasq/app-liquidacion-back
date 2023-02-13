@@ -1,9 +1,9 @@
-package co.com.ias.appback.infrastructure.entrypoint.dto.pageresponse;
+package co.com.ias.appback.infrastructure.entrypoint.dto.page_response;
 
-import co.com.ias.appback.domain.model.pageresponse.PageResponse;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponsePaging;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponseRemainingResults;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponseResults;
+import co.com.ias.appback.domain.model.page_response.PageResponse;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponsePaging;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponseRemainingResults;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponseResults;
 import co.com.ias.appback.infrastructure.entrypoint.dto.employee.EmployeeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -9,9 +9,9 @@ import co.com.ias.appback.domain.model.employee.attributes.EmployeeState;
 import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
 import co.com.ias.appback.domain.model.gateway.salary.ISaveSalaryHistoryGateway;
 import co.com.ias.appback.domain.model.gateway.employee.IUpdateEmployeeGateway;
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryModificationDate;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryUpdatedSalary;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryModificationDate;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryUpdatedSalary;
 import jakarta.persistence.EntityExistsException;
 
 import java.time.LocalDate;

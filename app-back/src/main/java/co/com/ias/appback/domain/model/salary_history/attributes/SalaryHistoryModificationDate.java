@@ -1,4 +1,4 @@
-package co.com.ias.appback.domain.model.salaryhistory.attributes;
+package co.com.ias.appback.domain.model.salary_history.attributes;
 
 import java.time.LocalDate;
 

@@ -2,7 +2,7 @@ package co.com.ias.appback.infrastructure.adapters;
 
 import co.com.ias.appback.domain.model.gateway.salary.IFindAllSalaryHistoryGateway;
 import co.com.ias.appback.domain.model.gateway.salary.ISaveSalaryHistoryGateway;
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
 import co.com.ias.appback.infrastructure.adapters.jpa.ISalaryHistoryRepositoryAdapter;
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.SalaryHistoryDBO;
 import lombok.AllArgsConstructor;

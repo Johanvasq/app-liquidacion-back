@@ -1,6 +1,6 @@
 package co.com.ias.appback.infrastructure.entrypoint.dto.salary;
 
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

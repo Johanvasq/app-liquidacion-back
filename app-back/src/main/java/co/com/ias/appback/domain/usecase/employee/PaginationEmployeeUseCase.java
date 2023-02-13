@@ -3,10 +3,10 @@ package co.com.ias.appback.domain.usecase.employee;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.gateway.employee.IPaginationEmployeeGateway;
-import co.com.ias.appback.domain.model.pageresponse.PageResponse;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponsePaging;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponseRemainingResults;
-import co.com.ias.appback.domain.model.pageresponse.attributes.PageResponseResults;
+import co.com.ias.appback.domain.model.page_response.PageResponse;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponsePaging;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponseRemainingResults;
+import co.com.ias.appback.domain.model.page_response.attributes.PageResponseResults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
