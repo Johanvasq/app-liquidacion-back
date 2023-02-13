@@ -68,9 +68,36 @@ public class SaveLiquidationUseCase {
                 salaryHistory, liquidationRequest.getEmployeeContractEnd().getValue().getYear(),
                 employee.get().getEmployeeCurrentSalary().getValue());
 
+        SeverancePay severancePay = severancePay(baseSettlementSalary.getValue(), daysWorkedCurrentYear.getValue());
+
+        VacationPay vacationPay = vacationPay(
+                employee.get().getEmployeeCurrentSalary().getValue() + transportationAllowance.getValue(),
+                totalDaysWorked.getValue());
+
+        InterestSeverancePay interestSeverancePay = interestSeverancePay(severancePay.getValue(), daysWorkedCurrentYear.getValue());
+
+        ServiceBonus serviceBonus = serviceBonus(baseSettlementSalary.getValue(), daysWorkedLastSixMonths.getValue());
+
+        PayrollPayable payrollPayable = payrollPayable(
+                employee.get().getEmployeeCurrentSalary().getValue(),
+                transportationAllowance.getValue(),
+                employee.get().getEmployeeContractStart().getValue(),
+                liquidationRequest.getEmployeeContractEnd().getValue());
+
+        BonusUnjustifiedDismissal bonusUnjustifiedDismissal = bonusUnjustifiedDismissal(liquidationRequest.getLrWithdrawalReason().getValue(),
+                baseSettlementSalary.getValue(),totalDaysWorked.getValue());
+
+        TotalSettlement totalSettlement = totalSettlement(
+                severancePay.getValue(),
+                vacationPay.getValue(),
+                interestSeverancePay.getValue(),
+                serviceBonus.getValue(),
+                payrollPayable.getValue(),
+                bonusUnjustifiedDismissal.getValue());
+
         return iSaveLiquidationGateway.saveLiquidation(new LiquidationPaymentResponse(
                 new LiquidationPaymentResponseId(null),
-                employee,
+                employee.get(),
                 employee.get().getEmployeeCurrentSalary(),
                 transportationAllowance,
                 employee.get().getEmployeeContractStart(),
@@ -81,10 +108,13 @@ public class SaveLiquidationUseCase {
                 vacationDaysToBeTaken,
                 daysWorkedLastSixMonths,
                 baseSettlementSalary,
-
-
-
-
+                severancePay,
+                vacationPay,
+                interestSeverancePay,
+                serviceBonus,
+                payrollPayable,
+                bonusUnjustifiedDismissal,
+                totalSettlement
         ));
 
     }
@@ -154,4 +184,74 @@ public class SaveLiquidationUseCase {
             return new BaseSettlementSalary(result/updatedAcumulation);
         }
     }
+
+    private SeverancePay severancePay(Double baseSettlementSalary, Integer daysWorkedCurrentYear){
+        return new SeverancePay((baseSettlementSalary * daysWorkedCurrentYear)/360);
+    }
+
+    private VacationPay vacationPay(Double baseSalary, Integer totalDays){
+        return new VacationPay((baseSalary * totalDays)/720);
+    }
+
+    private InterestSeverancePay interestSeverancePay(Double severancePay, Integer totalWorkingDaysCurrentYear){
+        return new InterestSeverancePay((severancePay * totalWorkingDaysCurrentYear * 0.12)/360);
+    }
+
+    private ServiceBonus serviceBonus(Double baseSettlementSalary, Integer daysWorkedLastSixMonths){
+        return new ServiceBonus((baseSettlementSalary * daysWorkedLastSixMonths) / 360);
+    }
+
+    private PayrollPayable payrollPayable(double currentSalary, Double transportationAllowance, LocalDate contractStart, LocalDate contractEnd){
+        int daysPayable = daysWorkedLastMont(contractStart, contractEnd);
+        Double salary = (currentSalary/30) * daysPayable;
+        Double transportation = (transportationAllowance/30) * daysPayable;
+        return new PayrollPayable(salary + transportation);
+    }
+
+    private Integer daysWorkedLastMont(LocalDate contractStart, LocalDate contractEnd){
+        int days;
+        LocalDate firstHalfStart = LocalDate.of(contractEnd.getYear(), contractEnd.getMonth() , 1);
+        LocalDate secondHalfStart = LocalDate.of(contractEnd.getYear(), contractEnd.getMonth(), 15);
+        if (contractStart.getYear() == contractEnd.getYear() && contractStart.getMonth() == contractEnd.getMonth()){
+            if (contractStart.isBefore(secondHalfStart) && contractEnd.isBefore(secondHalfStart)){
+                days = between(contractStart, contractEnd).getDays();
+            }else if (contractStart.isAfter(secondHalfStart)&& contractEnd.isAfter(secondHalfStart)){
+                days = between(contractStart, contractEnd).getDays();
+            }else {
+                days = between(secondHalfStart, contractEnd).getDays();
+            }
+        } else {
+            if (contractEnd.isBefore(secondHalfStart)){
+                days = between(firstHalfStart, contractStart).getDays();
+            } else {
+                days = between(secondHalfStart, contractEnd).getDays();
+            }
+        }
+        return days;
+    }
+
+    private BonusUnjustifiedDismissal bonusUnjustifiedDismissal(String withdrawalReason,Double baseSettlementSalary, Integer totalDaysWorked){
+        if (withdrawalReason.equalsIgnoreCase("RETIRO VOLUNTARIO") || withdrawalReason.equalsIgnoreCase("RETIRO JUSTIFICADO")){
+            return new BonusUnjustifiedDismissal(0d);
+        } else if ( withdrawalReason.equalsIgnoreCase("RETIRO INJUSTIFICADO")) {
+            double bonusFirstYear = ((30d / 360d) * totalDaysWorked) * ((baseSettlementSalary * 12) / 360);
+            double bonus = totalDaysWorked <= 365 ? bonusFirstYear :
+                    bonusFirstYear + ((20d/360d) * totalDaysWorked-365) * ((baseSettlementSalary*12)/360);
+            return new BonusUnjustifiedDismissal(bonus);
+        }
+        return new BonusUnjustifiedDismissal(0d);
+    }
+
+    private TotalSettlement totalSettlement(
+            Double severancePay,
+            Double vacationPay,
+            Double interestSeverancePay,
+            Double serviceBonus,
+            Double payrollPayable,
+            Double bonusUnjustifiedDismissal
+    ){
+        return new TotalSettlement(
+                severancePay + vacationPay + interestSeverancePay + serviceBonus + payrollPayable + bonusUnjustifiedDismissal);
+    }
+
 }
