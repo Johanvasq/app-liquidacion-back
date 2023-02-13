@@ -1,8 +1,6 @@
 
 O
 .idea/modules/app-back.main.iml,1\7\179f8e797f4e89f5f7015b28cc68b3efb9e71102
-å
-\app-back/src/main/java/co/com/ias/appback/domain/model/employee/attributes/EmployeeName.java,5\6\56a8cdbe23ea4a78a7ac29575864b80e71e2fe98
 ê
 `app-back/src/main/java/co/com/ias/appback/domain/model/employee/attributes/EmployeePosition.java,5\0\50202f9f08fae1f75fc3c13ede5a2273e4e6cb55
 q
@@ -11,8 +9,6 @@ Aapp-back/src/main/java/co/com/ias/appback/AppBackApplication.java,8\a\8a50dfc5
 fapp-back/src/main/java/co/com/ias/appback/domain/model/pageresponse/attributes/PageResponsePaging.java,2\9\29f868c25817ca72c6e305d9ef3a7eb95dc9c180
 õ
 kapp-back/src/main/java/co/com/ias/appback/infrastructure/entrypoint/dto/employee/PaginationEmployeeDTO.java,9\7\972cb2732e165b273b2b7fe908e252b88d63f35d
-ë
-aapp-back/src/main/java/co/com/ias/appback/infrastructure/entrypoint/dto/employee/EmployeeDTO.java,c\a\ca7658ff6f7cc69bbfb7504694e32edb45ff8da8
 é
 ^app-back/src/main/java/co/com/ias/appback/infrastructure/exceptions/RestControllerAdvisor.java,8\2\8243acc572ac11c1808b2246035353d77a8c3924
 ó
