@@ -71,8 +71,9 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public FindLiquidationByIdUseCase findLiquidationByIdUseCase(IFindLiquidationByIdGateway iFindLiquidationByIdGateway){
-        return new FindLiquidationByIdUseCase(iFindLiquidationByIdGateway);
+    public FindLiquidationByIdUseCase findLiquidationByIdUseCase(IFindLiquidationByIdGateway iFindLiquidationByIdGateway,
+                                                                 IFindEmployeeByIdGateway iFindEmployeeByIdGateway){
+        return new FindLiquidationByIdUseCase(iFindLiquidationByIdGateway, iFindEmployeeByIdGateway);
     }
 
     @Bean

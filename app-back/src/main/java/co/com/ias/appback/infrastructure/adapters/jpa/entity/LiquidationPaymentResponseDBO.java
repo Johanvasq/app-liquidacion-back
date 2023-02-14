@@ -15,16 +15,16 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 
+@Entity
+@Table(name ="liquidation")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name ="liquidation")
 public class LiquidationPaymentResponseDBO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String  id;
+    private Integer  id;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private EmployeeDBO employeeDBO;
@@ -46,9 +46,29 @@ public class LiquidationPaymentResponseDBO {
     private Double bonusUnjustifiedDismissal;
     private Double totalSettlement;
 
+    public LiquidationPaymentResponseDBO(EmployeeDBO employeeDBO, Double lprLastSalary, Double transportationAllowance, LocalDate employeeContractStart, LocalDate employeeContractEnd, String withdrawalReason, Integer totalDaysWorked, Integer daysWorkedCurrentYear, Double vacationDaysToBeTaken, Integer daysWorkedLastSixMonths, Double baseSettlementSalary, Double severancePay, Double vacationPay, Double interestSeverancePay, Double serviceBonus, Double payrollPayable, Double bonusUnjustifiedDismissal, Double totalSettlement) {
+        this.employeeDBO = employeeDBO;
+        this.lprLastSalary = lprLastSalary;
+        this.transportationAllowance = transportationAllowance;
+        this.employeeContractStart = employeeContractStart;
+        this.employeeContractEnd = employeeContractEnd;
+        this.withdrawalReason = withdrawalReason;
+        this.totalDaysWorked = totalDaysWorked;
+        this.daysWorkedCurrentYear = daysWorkedCurrentYear;
+        this.vacationDaysToBeTaken = vacationDaysToBeTaken;
+        this.daysWorkedLastSixMonths = daysWorkedLastSixMonths;
+        this.baseSettlementSalary = baseSettlementSalary;
+        this.severancePay = severancePay;
+        this.vacationPay = vacationPay;
+        this.interestSeverancePay = interestSeverancePay;
+        this.serviceBonus = serviceBonus;
+        this.payrollPayable = payrollPayable;
+        this.bonusUnjustifiedDismissal = bonusUnjustifiedDismissal;
+        this.totalSettlement = totalSettlement;
+    }
+
     public LiquidationPaymentResponseDBO fromDomain(LiquidationPaymentResponse liquidation){
         return new LiquidationPaymentResponseDBO(
-                liquidation.getId().getValue(),
                 new EmployeeDBO().fromDomain(liquidation.getEmployee()),
                 liquidation.getLprLastSalary().getValue(),
                 liquidation.getTransportationAllowance().getValue(),
@@ -72,7 +92,7 @@ public class LiquidationPaymentResponseDBO {
 
     public LiquidationPaymentResponse toDomain(){
         return new LiquidationPaymentResponse(
-                new LiquidationPaymentResponseId(this.id),
+                new LiquidationPaymentResponseId(this.id.toString()),
                 this.employeeDBO.toDomain(),
                 new EmployeeCurrentSalary(this.lprLastSalary),
                 new TransportationAllowance(this.transportationAllowance),

@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class PaginationLiquidationDTO {
 
+
     @Pattern(regexp = "\\d{4}\\/(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])$", message = "the date format is \"yyyy-dd-MM\"")
     private String minRangeDate;
 

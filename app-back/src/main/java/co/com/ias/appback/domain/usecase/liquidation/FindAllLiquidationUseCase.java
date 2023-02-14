@@ -26,7 +26,7 @@ public class FindAllLiquidationUseCase {
                                                       Integer page){
         LocalDate selectedMinDate = minDate != null ? minDate : LocalDate.of(2015,1,1);
         LocalDate selectedMaxDate = maxDate != null ? maxDate : LocalDate.of(2100,1,1);
-        if(selectedMinDate.isBefore(selectedMaxDate)){
+        if(selectedMinDate.isAfter(selectedMaxDate)){
             throw new IllegalArgumentException("please provide correct date range");
         }
         int selectedRecordsPerPage = recordsPerPage != null ? recordsPerPage : 5;

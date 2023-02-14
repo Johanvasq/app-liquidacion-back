@@ -48,8 +48,12 @@ public class LiquidationEntryPoint {
 
     @GetMapping
     public ResponseEntity<LiquidationPageResponseDTO> findAllLiquidation(@Valid @RequestBody PaginationLiquidationDTO paginationLiquidationDTO) {
-        LocalDate minDate = LocalDate.parse(paginationLiquidationDTO.getMinRangeDate(), GlobalConstants.DATE_FORMAT);
-        LocalDate maxDate = LocalDate.parse(paginationLiquidationDTO.getMaxRangeDate(), GlobalConstants.DATE_FORMAT);
+        LocalDate minDate = paginationLiquidationDTO.getMinRangeDate() != null ?
+                LocalDate.parse(paginationLiquidationDTO.getMinRangeDate(), GlobalConstants.DATE_FORMAT) : null;
+
+        LocalDate maxDate = paginationLiquidationDTO.getMaxRangeDate() != null ?
+                LocalDate.parse(paginationLiquidationDTO.getMaxRangeDate(), GlobalConstants.DATE_FORMAT) : null;
+
         return ResponseEntity.status(HttpStatus.FOUND).body(
                 new LiquidationPageResponseDTO()
                         .fromDomain(findAllLiquidationUseCase.findAllByDateRange(
