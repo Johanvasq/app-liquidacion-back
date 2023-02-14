@@ -25,9 +25,9 @@ class SaveEmployeeUseCaseTest {
     private SaveEmployeeUseCase saveEmployeeUseCase;
 
     @Mock
-    private ISaveEmployeeGateway ISaveEmployeeGateway;
+    private ISaveEmployeeGateway iSaveEmployeeGateway;
     @Mock
-    private IFindEmployeeByIdGateway IFindEmployeeByIdGateway;
+    private IFindEmployeeByIdGateway iFindEmployeeByIdGateway;
 
     @Mock
     private SaveSalaryHistoryUseCase saveSalaryHistoryUseCase;
@@ -46,10 +46,10 @@ class SaveEmployeeUseCaseTest {
                 new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
 
         );
-        when(ISaveEmployeeGateway.saveEmployee(any(Employee.class)))
+        when(iSaveEmployeeGateway.saveEmployee(any(Employee.class)))
                 .thenReturn(employee);
 
-        when(IFindEmployeeByIdGateway.findById("1234598411"))
+        when(iFindEmployeeByIdGateway.findById("1234598411"))
                 .thenReturn(null);
 
         when(saveSalaryHistoryUseCase.saveSalary(any(SalaryHistory.class)))
@@ -74,7 +74,7 @@ class SaveEmployeeUseCaseTest {
                 new EmployeeCurrentSalary(1500000.0),
                 new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
         );
-        when(IFindEmployeeByIdGateway.findById("12345678"))
+        when(iFindEmployeeByIdGateway.findById("12345678"))
                 .thenReturn(employee);
         Throwable exception = assertThrows(EntityExistsException.class, () -> saveEmployeeUseCase.saveEmployee(employee));
         assertTrue(exception.getMessage().contains("The id already exists, please try to modify the existing employee or check the provided id"));

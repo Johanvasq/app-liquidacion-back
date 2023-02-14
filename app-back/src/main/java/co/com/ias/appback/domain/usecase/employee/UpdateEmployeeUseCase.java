@@ -42,7 +42,7 @@ public class UpdateEmployeeUseCase {
                 throw new IllegalArgumentException("Cannot modify inactive employees");
             }
             Double salary = employee.get().getEmployeeCurrentSalary().getValue();
-            LocalDate date = employee.get().getEmployeeContractStart().getValue();
+            LocalDate date = employee.get().getEmployeeLastSalaryUpdated().getValue();
             if (salary < updateSalary) {
                 newSalary = updateSalary;
             } else {
