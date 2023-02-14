@@ -38,7 +38,9 @@ class SaveEmployeeUseCaseTest {
                 new EmployeeContractStart(LocalDate.of(2015,2,2)),
                 new EmployeePosition("software developer"),
                 new EmployeeState(true),
-                new EmployeeCurrentSalary(1500000.0)
+                new EmployeeCurrentSalary(1500000.0),
+                new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
+
         );
         when(ISaveEmployeeGateway.saveEmployee(any(Employee.class)))
                 .thenReturn(employee);
@@ -61,7 +63,8 @@ class SaveEmployeeUseCaseTest {
                 new EmployeeContractStart(LocalDate.of(2015,2,2)),
                 new EmployeePosition("software developer"),
                 new EmployeeState(true),
-                new EmployeeCurrentSalary(1500000.0)
+                new EmployeeCurrentSalary(1500000.0),
+                new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
         );
         when(IFindEmployeeByIdGateway.findById("12345678"))
                 .thenReturn(employee);

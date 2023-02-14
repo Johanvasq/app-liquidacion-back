@@ -43,7 +43,9 @@ class EmployeeEntryPointTest {
                 new EmployeeContractStart(LocalDate.of(2015,2,2)),
                 new EmployeePosition("software developer"),
                 new EmployeeState(true),
-                new EmployeeCurrentSalary(1500000.0)
+                new EmployeeCurrentSalary(1500000.0),
+                new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
+
         );
 
         EmployeeDTO employeeDTO = new EmployeeDTO().fromDomain(employee);
@@ -73,7 +75,8 @@ class EmployeeEntryPointTest {
                 LocalDate.of(2015,2,2).format(DateTimeFormatter.ofPattern("yyyy/dd/MM")),
                 "software developer",
                 1500000.0,
-                true
+                true,
+                LocalDate.of(2015,2,2).format(DateTimeFormatter.ofPattern("yyyy/dd/MM"))
         );
 
         when(saveEmployeeUseCase.saveEmployee(any(Employee.class)))

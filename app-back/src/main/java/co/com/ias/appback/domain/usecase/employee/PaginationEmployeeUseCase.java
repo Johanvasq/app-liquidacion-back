@@ -3,10 +3,10 @@ package co.com.ias.appback.domain.usecase.employee;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.gateway.employee.IPaginationEmployeeGateway;
-import co.com.ias.appback.domain.model.page_response.PageResponse;
-import co.com.ias.appback.domain.model.page_response.attributes.PageResponsePaging;
-import co.com.ias.appback.domain.model.page_response.attributes.PageResponseRemainingResults;
-import co.com.ias.appback.domain.model.page_response.attributes.PageResponseResults;
+import co.com.ias.appback.domain.model.employee_page_response.EmployeePageResponse;
+import co.com.ias.appback.domain.model.employee_page_response.attributes.PageResponsePaging;
+import co.com.ias.appback.domain.model.employee_page_response.attributes.PageResponseRemainingResults;
+import co.com.ias.appback.domain.model.employee_page_response.attributes.PageResponseResults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +19,10 @@ public class PaginationEmployeeUseCase {
         this.iPaginationEmployeeGateway = iPaginationEmployeeGateway;
     }
 
-    public PageResponse findEmployeesBySalaryRange(Double minSalary,
-                                                   Double maxSalary,
-                                                   Integer recordsPerPage,
-                                                   Integer page){
+    public EmployeePageResponse findEmployeesBySalaryRange(Double minSalary,
+                                                           Double maxSalary,
+                                                           Integer recordsPerPage,
+                                                           Integer page){
 
         Double selectedMinSalary = minSalary != null ? minSalary : 1160000;
         Double selectedMaxSalary = maxSalary != null ? maxSalary : 7000000;
@@ -35,7 +35,7 @@ public class PaginationEmployeeUseCase {
         Page<Employee> rta = iPaginationEmployeeGateway
                 .findEmployeesBySalaryRange(selectedMinSalary, selectedMaxSalary, pageable);
 
-        return new PageResponse(
+        return new EmployeePageResponse(
                 new PageResponsePaging(rta.getTotalPages()),
                 new PageResponseResults((int) rta.getTotalElements()),
                 new PageResponseRemainingResults((int) rta.getTotalElements() - (rta.getNumber() * rta.getSize())),

@@ -23,6 +23,7 @@ public class PaginationEmployeeDTO {
     @Max(value = 15, message = "maximum 15 records per page")
     private Integer recordsPerPage;
 
+    @NotNull(message = "you must send the value of the page, start with 1")
     @Min(value = 1, message = "the pages start with 1")
     private Integer page;
 

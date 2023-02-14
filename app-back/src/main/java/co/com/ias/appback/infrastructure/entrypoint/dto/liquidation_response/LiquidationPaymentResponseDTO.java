@@ -12,13 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class liquidationResponseDTO {
+public class LiquidationPaymentResponseDTO {
     private String  id;
     private String employeeName;
     private String employeeId;
     private String employeePosition;
     private Boolean employeeState;
-    private Double LastSalary;
+    private Double lastSalary;
     private Double transportationAllowance;
     private String employeeContractStart;
     private String employeeContractEnd;
@@ -36,8 +36,8 @@ public class liquidationResponseDTO {
     private Double bonusUnjustifiedDismissal;
     private Double totalSettlement;
 
-    public liquidationResponseDTO fromDomain(LiquidationPaymentResponse liquidation){
-        return new liquidationResponseDTO(
+    public LiquidationPaymentResponseDTO fromDomain(LiquidationPaymentResponse liquidation){
+        return new LiquidationPaymentResponseDTO(
                 liquidation.getId().getValue(),
                  liquidation.getEmployee().getEmployeeName().getValue(),
                 liquidation.getEmployee().getEmployeeId().getValue(),

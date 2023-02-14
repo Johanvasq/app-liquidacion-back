@@ -38,7 +38,9 @@ class EmployeeRepositoryAdapterTest {
                 new EmployeeContractStart(LocalDate.of(2015,2,2)),
                 new EmployeePosition("software developer"),
                 new EmployeeState(true),
-                new EmployeeCurrentSalary(1500000.0)
+                new EmployeeCurrentSalary(1500000.0),
+                new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
+
         );
         EmployeeDBO employeeDBO = new EmployeeDBO().fromDomain(employee);
 
@@ -62,7 +64,9 @@ class EmployeeRepositoryAdapterTest {
                 new EmployeeContractStart(LocalDate.of(2015,2,2)),
                 new EmployeePosition("software developer"),
                 new EmployeeState(true),
-                new EmployeeCurrentSalary(1500000.0)
+                new EmployeeCurrentSalary(1500000.0),
+                new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
+
         );
         EmployeeDBO employeeDBO = new EmployeeDBO().fromDomain(employee);
 
@@ -81,7 +85,9 @@ class EmployeeRepositoryAdapterTest {
                 new EmployeeContractStart(LocalDate.of(2015,2,2)),
                 new EmployeePosition("software developer"),
                 new EmployeeState(true),
-                new EmployeeCurrentSalary(1500000.0)
+                new EmployeeCurrentSalary(1500000.0),
+                new EmployeeLastSalaryUpdated(LocalDate.of(2015,2,2))
+
         );
         EmployeeDBO employeeDBO = new EmployeeDBO().fromDomain(employee);
 
