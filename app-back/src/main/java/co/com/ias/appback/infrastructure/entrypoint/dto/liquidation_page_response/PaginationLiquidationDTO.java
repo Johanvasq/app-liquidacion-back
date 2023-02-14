@@ -1,6 +1,7 @@
 package co.com.ias.appback.infrastructure.entrypoint.dto.liquidation_page_response;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class PaginationLiquidationDTO {
 
 

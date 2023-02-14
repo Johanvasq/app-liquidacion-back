@@ -1,10 +1,11 @@
-package co.com.ias.appback.domain.usecase;
+package co.com.ias.appback.domain.usecase.employee;
 
 import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.employee.attributes.*;
 import co.com.ias.appback.domain.model.gateway.employee.IFindEmployeeByIdGateway;
 import co.com.ias.appback.domain.model.gateway.employee.ISaveEmployeeGateway;
-import co.com.ias.appback.domain.usecase.employee.SaveEmployeeUseCase;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
+import co.com.ias.appback.domain.usecase.salary.SaveSalaryHistoryUseCase;
 import jakarta.persistence.EntityExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ class SaveEmployeeUseCaseTest {
     @Mock
     private IFindEmployeeByIdGateway IFindEmployeeByIdGateway;
 
+    @Mock
+    private SaveSalaryHistoryUseCase saveSalaryHistoryUseCase;
+
     @Test
     @DisplayName("save employee ok")
     void saveEmployee() {
@@ -44,8 +48,12 @@ class SaveEmployeeUseCaseTest {
         );
         when(ISaveEmployeeGateway.saveEmployee(any(Employee.class)))
                 .thenReturn(employee);
+
         when(IFindEmployeeByIdGateway.findById("1234598411"))
                 .thenReturn(null);
+
+        when(saveSalaryHistoryUseCase.saveSalary(any(SalaryHistory.class)))
+                .thenReturn(any(SalaryHistory.class));
         //Act
         //Assert
         Employee employeeTest = saveEmployeeUseCase.saveEmployee(employee);

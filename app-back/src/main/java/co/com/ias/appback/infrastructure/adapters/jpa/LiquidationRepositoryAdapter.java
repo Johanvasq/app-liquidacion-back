@@ -1,11 +1,9 @@
 package co.com.ias.appback.infrastructure.adapters.jpa;
 
-import co.com.ias.appback.domain.model.employee.Employee;
 import co.com.ias.appback.domain.model.gateway.liquidation.IFindAllLiquidationGateway;
 import co.com.ias.appback.domain.model.gateway.liquidation.IFindLiquidationByIdGateway;
 import co.com.ias.appback.domain.model.gateway.liquidation.ISaveLiquidationGateway;
 import co.com.ias.appback.domain.model.liquidation_payment_response.LiquidationPaymentResponse;
-import co.com.ias.appback.infrastructure.adapters.jpa.entity.EmployeeDBO;
 import co.com.ias.appback.infrastructure.adapters.jpa.entity.LiquidationPaymentResponseDBO;
 import co.com.ias.appback.infrastructure.adapters.jpa.repository.ILiquidationRepositoryAdapter;
 import lombok.AllArgsConstructor;
