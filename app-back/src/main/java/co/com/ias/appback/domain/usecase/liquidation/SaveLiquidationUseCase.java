@@ -14,10 +14,10 @@ import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
 import jakarta.persistence.EntityExistsException;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-import static java.time.Period.*;
 
 public class SaveLiquidationUseCase {
 
@@ -140,19 +140,20 @@ public class SaveLiquidationUseCase {
     }
 
     private TotalDaysWorked totalDaysWorked(LocalDate contractStart, LocalDate contractEnd){
+        long period =  ChronoUnit.DAYS.between(contractStart,contractEnd);
         return new TotalDaysWorked(
-                between(contractStart,contractEnd).getDays()
+                (int) period
         );
     }
 
     private DaysWorkedCurrentYear daysWorkedCurrentYear(LocalDate contractStart,LocalDate contractEnd){
         if (contractStart.getYear() == contractEnd.getYear()){
             return new DaysWorkedCurrentYear(
-                    between(contractStart,contractEnd).getDays()
+                    (int) ChronoUnit.DAYS.between(contractStart,contractEnd)
             );
         }
         return new DaysWorkedCurrentYear(
-                between(LocalDate.of(contractEnd.getYear(), 1,1),contractEnd).getDays()
+                (int) ChronoUnit.DAYS.between(LocalDate.of(contractEnd.getYear(), 1,1),contractEnd)
         );
     }
 
@@ -169,17 +170,17 @@ public class SaveLiquidationUseCase {
         LocalDate secondHalfStart = LocalDate.of(contractEnd.getYear(), 7 , 1);
         if (contractStart.getYear() == contractEnd.getYear()){
             if (contractStart.isBefore(secondHalfStart) && contractEnd.isBefore(secondHalfStart)){
-                days = between(contractStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(contractStart, contractEnd);
             }else if (contractStart.isAfter(firstHalfEnd)&& contractEnd.isAfter(firstHalfEnd)){
-                days = between(contractStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(contractStart, contractEnd);
             }else {
-                days = between(secondHalfStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(secondHalfStart, contractEnd);
             }
         } else {
             if (contractEnd.isBefore(secondHalfStart)){
-                days = between(firstHalfStart, contractStart).getDays();
+                days = (int) ChronoUnit.DAYS.between(firstHalfStart, contractStart);
             } else {
-                days = between(secondHalfStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(secondHalfStart, contractEnd);
             }
         }
         return new DaysWorkedLastSixMonths(days);
@@ -234,17 +235,17 @@ public class SaveLiquidationUseCase {
         LocalDate secondHalfStart = LocalDate.of(contractEnd.getYear(), contractEnd.getMonth(), 15);
         if (contractStart.getYear() == contractEnd.getYear() && contractStart.getMonth() == contractEnd.getMonth()){
             if (contractStart.isBefore(secondHalfStart) && contractEnd.isBefore(secondHalfStart)){
-                days = between(contractStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(contractStart, contractEnd);
             }else if (contractStart.isAfter(secondHalfStart)&& contractEnd.isAfter(secondHalfStart)){
-                days = between(contractStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(contractStart, contractEnd);
             }else {
-                days = between(secondHalfStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(secondHalfStart, contractEnd);
             }
         } else {
             if (contractEnd.isBefore(secondHalfStart)){
-                days = between(firstHalfStart, contractStart).getDays();
+                days = (int) ChronoUnit.DAYS.between(firstHalfStart, contractStart);
             } else {
-                days = between(secondHalfStart, contractEnd).getDays();
+                days = (int) ChronoUnit.DAYS.between(secondHalfStart, contractEnd);
             }
         }
         return days;
