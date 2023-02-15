@@ -23,3 +23,4 @@ docker-compose up
 
 For more information on how to deploy a Docker Compose, download Docker Desktop and visit its [Documentation](https://docs.docker.com/compose/)
 
+**Note:** it will be deployed on a Docker network called "app-liquidation" using the "bridge" network driver.
