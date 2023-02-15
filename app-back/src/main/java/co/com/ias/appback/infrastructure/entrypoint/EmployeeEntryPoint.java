@@ -8,7 +8,7 @@ import co.com.ias.appback.domain.usecase.employee.UpdateEmployeeUseCase;
 import co.com.ias.appback.infrastructure.entrypoint.dto.employee.EmployeeDTO;
 import co.com.ias.appback.infrastructure.entrypoint.dto.employee.PaginationEmployeeDTO;
 import co.com.ias.appback.infrastructure.entrypoint.dto.employee.UpdateEmployeeDTO;
-import co.com.ias.appback.infrastructure.entrypoint.dto.pageresponse.PageResponseDTO;
+import co.com.ias.appback.infrastructure.entrypoint.dto.employee_page_response.EmployeePageResponseDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -62,10 +61,10 @@ public class EmployeeEntryPoint {
 
 
     @GetMapping
-    public ResponseEntity<PageResponseDTO> paginationEmployees(
+    public ResponseEntity<EmployeePageResponseDTO> paginationEmployees(
             @Valid @RequestBody PaginationEmployeeDTO paginationEmployeeDTO){
         return ResponseEntity.status(HttpStatus.FOUND)
-                .body(new PageResponseDTO()
+                .body(new EmployeePageResponseDTO()
                         .fromDomain(paginationEmployeeUseCase
                         .findEmployeesBySalaryRange(
                                 paginationEmployeeDTO.getMinRangeSalary(),

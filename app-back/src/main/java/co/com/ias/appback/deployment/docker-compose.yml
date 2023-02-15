@@ -1,0 +1,44 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: liquidation-app
+    ports:
+      - '5432:5432'
+    networks:
+      - app-liquidation
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8090:8080"
+    networks:
+      - app-liquidation
+
+  app-back:
+    image: app-back
+    build:
+      context: ../../../../../../../../../app-back/.
+    container_name: app
+    restart: always
+    ports:
+      - "8087:8087"
+    networks:
+      - app-liquidation
+    depends_on:
+            - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/liquidation-app
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+networks:
+  app-liquidation:
+    driver: bridge

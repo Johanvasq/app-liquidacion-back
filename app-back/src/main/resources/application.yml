@@ -10,3 +10,7 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+  application:
+    name: app-liquidation
+  profiles:
+    active: dev

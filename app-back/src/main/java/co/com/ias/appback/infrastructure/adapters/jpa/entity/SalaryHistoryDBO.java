@@ -1,10 +1,8 @@
 package co.com.ias.appback.infrastructure.adapters.jpa.entity;
 
-import co.com.ias.appback.domain.model.employee.Employee;
-import co.com.ias.appback.domain.model.employee.attributes.EmployeeId;
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryModificationDate;
-import co.com.ias.appback.domain.model.salaryhistory.attributes.SalaryHistoryUpdatedSalary;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryModificationDate;
+import co.com.ias.appback.domain.model.salary_history.attributes.SalaryHistoryUpdatedSalary;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,7 +1,7 @@
 package co.com.ias.appback.domain.usecase.salary;
 
 import co.com.ias.appback.domain.model.gateway.salary.ISaveSalaryHistoryGateway;
-import co.com.ias.appback.domain.model.salaryhistory.SalaryHistory;
+import co.com.ias.appback.domain.model.salary_history.SalaryHistory;
 
 public class SaveSalaryHistoryUseCase {
 
