@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://0.0.0.0:5432/liquidation-app
+    username: admin
+    password: admin
+
+  jpa:
+    properties:
+      hibernate:
+        dialect : org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8087
