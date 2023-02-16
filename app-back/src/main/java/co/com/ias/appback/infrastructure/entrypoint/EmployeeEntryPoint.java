@@ -60,7 +60,7 @@ public class EmployeeEntryPoint {
     }
 
 
-    @GetMapping
+    @PostMapping("/salary-range")
     public ResponseEntity<EmployeePageResponseDTO> paginationEmployees(
             @Valid @RequestBody PaginationEmployeeDTO paginationEmployeeDTO){
         return ResponseEntity.status(HttpStatus.FOUND)

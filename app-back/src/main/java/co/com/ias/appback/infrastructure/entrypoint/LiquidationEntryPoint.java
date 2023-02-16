@@ -46,7 +46,7 @@ public class LiquidationEntryPoint {
         );
     }
 
-    @GetMapping
+    @PostMapping("/date-range")
     public ResponseEntity<LiquidationPageResponseDTO> findAllLiquidation(@Valid @RequestBody PaginationLiquidationDTO paginationLiquidationDTO) {
         LocalDate minDate = paginationLiquidationDTO.getMinRangeDate() != null ?
                 LocalDate.parse(paginationLiquidationDTO.getMinRangeDate(), GlobalConstants.DATE_FORMAT) : null;
