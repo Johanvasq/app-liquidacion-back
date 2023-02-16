@@ -235,7 +235,7 @@ class EmployeeEntryPointTest {
 
         when(paginationEmployeeUseCase.findEmployeesBySalaryRange(any(Double.class), any(Double.class), any(Integer.class), any(Integer.class)))
                 .thenReturn(employeePageResponse);
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee")
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee/salary-range")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(paginationEmployeeDTO)))
                 .andExpect(MockMvcResultMatchers.status().isFound())
@@ -278,7 +278,7 @@ class EmployeeEntryPointTest {
         when(paginationEmployeeUseCase.findEmployeesBySalaryRange(any(Double.class), any(Double.class), any(Integer.class), any(Integer.class)))
                 .thenReturn(employeePageResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee")
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(paginationEmployeeDTO)))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());

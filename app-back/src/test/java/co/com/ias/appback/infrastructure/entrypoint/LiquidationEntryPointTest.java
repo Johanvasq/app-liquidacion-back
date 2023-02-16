@@ -216,7 +216,7 @@ class LiquidationEntryPointTest {
         when(findAllLiquidationUseCase.findAllByDateRange(any(LocalDate.class), any(LocalDate.class), any(Integer.class), any(Integer.class)))
                 .thenReturn(liquidationPageResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee/liquidation")
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee/liquidation/date-range")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(paginationLiquidationDTO)))
                 .andExpect(status().isFound())
